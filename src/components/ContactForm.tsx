@@ -1,5 +1,5 @@
 import { useRef, useState, type ChangeEvent, type FormEvent, type ReactNode } from 'react'
-import { AlertCircle, CheckCircle2, Loader2, Send } from 'lucide-react'
+import { AlertCircle, CheckCircle2, ChevronDown, Loader2, Send } from 'lucide-react'
 import Button from './Button'
 import { siteConfig } from '@/config/siteConfig'
 import { serviceFormOptions } from '@/data/services'
@@ -68,14 +68,17 @@ export default function ContactForm() {
   return (
     <form ref={formRef} onSubmit={onSubmit} noValidate className="rounded-2xl border border-ink/10 bg-white p-6 shadow-sm sm:p-8">
       <div className="grid gap-5 sm:grid-cols-2">
-        <Field id="name" label="Full Name" required error={errors.name}><input {...props('name')} type="text" autoComplete="name" placeholder="Jane Doe" /></Field>
+        <Field id="name" label="Full Name" required error={errors.name}><input {...props('name')} type="text" autoComplete="name" autoCapitalize="words" placeholder="Jane Doe" /></Field>
         <Field id="email" label="Business Email" required error={errors.email}><input {...props('email')} type="email" autoComplete="email" placeholder="jane@company.com" /></Field>
         <Field id="company" label="Company Name" error={errors.company}><input {...props('company')} type="text" autoComplete="organization" placeholder="Your company" /></Field>
         <Field id="service" label="Service Interested In" required error={errors.service}>
-          <select {...props('service')}>
-            <option value="">Select a service…</option>
-            {serviceFormOptions.map((o) => <option key={o} value={o}>{o}</option>)}
-          </select>
+          <div className="relative">
+            <select {...props('service')} className={cn(props('service').className, 'appearance-none text-ellipsis pr-10')}>
+              <option value="">Select a service…</option>
+              {serviceFormOptions.map((o) => <option key={o} value={o}>{o}</option>)}
+            </select>
+            <ChevronDown className="pointer-events-none absolute right-3 top-1/2 size-5 -translate-y-1/2 text-muted-dark" aria-hidden="true" />
+          </div>
         </Field>
         <Field id="subject" label="Subject" required error={errors.subject} className="sm:col-span-2"><input {...props('subject')} type="text" placeholder="How can we help?" /></Field>
         <Field id="message" label="Message" required error={errors.message} className="sm:col-span-2"><textarea {...props('message')} rows={5} placeholder="Tell us about your project or challenge." /></Field>

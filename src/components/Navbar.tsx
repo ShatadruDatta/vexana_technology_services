@@ -42,7 +42,7 @@ export default function Navbar() {
   }, [open])
 
   return (
-    <header className={cn('fixed inset-x-0 top-0 z-50 transition-colors duration-300', scrolled || open ? 'border-b border-white/10 bg-navy-950/85 backdrop-blur-xl' : 'bg-transparent')}>
+    <header className={cn('fixed inset-x-0 top-0 z-50 transition-colors duration-300', open ? 'border-b border-white/10 bg-navy-950' : scrolled ? 'border-b border-white/10 bg-navy-950/95 backdrop-blur-xl' : 'bg-transparent')}>
       <nav aria-label="Primary" className="container-x flex h-16 items-center justify-between lg:h-20">
         <Link to="/" aria-label="VEXANA home"><Logo /></Link>
 
